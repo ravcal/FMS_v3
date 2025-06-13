@@ -1,17 +1,11 @@
-import { Header } from "@/components/header"
-import { Sidebar } from "@/components/sidebar"
-import { Reports } from "@/components/reports"
+import { Reports } from "@/components/reports";
+import { MainLayout } from "@/components/main-layout"; // Import the layout
 
 export default function ReportsPage() {
   return (
-    <div className="flex h-screen bg-gray-50">
-      <Sidebar activeTab="reports" />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
-          <Reports />
-        </main>
-      </div>
-    </div>
-  )
+    // Use the MainLayout to wrap the page content
+    <MainLayout activeTab="reports">
+      <Reports />
+    </MainLayout>
+  );
 }
