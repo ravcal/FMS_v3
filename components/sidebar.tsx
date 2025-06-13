@@ -23,7 +23,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
-// Ensure the props interface is defined correctly
 interface SidebarProps {
   activeTab: string;
   isOpen: boolean;
@@ -63,7 +62,8 @@ export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
     }
     return pathname?.startsWith(path) || false
   }
-  
+
+  // --- 1. This function handles the click and calls onClose ---
   const handleLinkClick = () => {
     // Close sidebar on mobile when a link is clicked
     if (typeof window !== "undefined" && window.innerWidth < 768) {
@@ -71,36 +71,42 @@ export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
     }
   }
 
+  // Close sidebar when clicking outside on mobile
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (typeof window === "undefined") return;
-      const sidebar = document.getElementById("mobile-sidebar");
-      const target = event.target as Node;
+      if (typeof window === "undefined") return
+
+      const sidebar = document.getElementById("mobile-sidebar")
+      const target = event.target as Node
+
       if (isOpen && sidebar && !sidebar.contains(target) && window.innerWidth < 768) {
-        onClose();
+        onClose()
       }
-    };
+    }
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside)
+      // Prevent body scroll when sidebar is open on mobile
       if (typeof window !== "undefined" && window.innerWidth < 768) {
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden"
       }
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside)
       if (typeof document !== "undefined") {
-        document.body.style.overflow = "unset";
+        document.body.style.overflow = "unset"
       }
-    };
-  }, [isOpen, onClose]);
+    }
+  }, [isOpen, onClose])
 
+  // Close sidebar on route change (for browser back/forward buttons)
   useEffect(() => {
     if (isOpen && typeof window !== 'undefined' && window.innerWidth < 768) {
       onClose();
     }
-  }, [pathname]);
+  }, [pathname, isOpen, onClose]);
+
 
   return (
     <>
@@ -125,6 +131,8 @@ export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
             <Truck className="h-8 w-8 text-blue-600" />
             <h1 className="text-xl font-bold text-gray-800">My Fleet Manager</h1>
           </Link>
+
+          {/* Close button for mobile */}
           <button
             onClick={onClose}
             className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
@@ -138,12 +146,14 @@ export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-2 space-y-1">
             {menuItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = isPathActive(item.path);
+              const Icon = item.icon
+              const isActive = isPathActive(item.path)
+
               return (
                 <Link
                   key={item.id}
                   href={item.path}
+                  // --- 2. The onClick handler is added to each link ---
                   onClick={handleLinkClick}
                   className={cn(
                     "w-full flex items-center px-3 py-3 rounded-md text-sm font-medium transition-colors",
@@ -157,11 +167,11 @@ export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
                   <Icon className="h-5 w-5 mr-3 flex-shrink-0" />
                   <span className="truncate">{item.label}</span>
                 </Link>
-              );
+              )
             })}
           </div>
         </nav>
-        
+
         {/* Settings */}
         <div className="border-t p-4">
           <Link
