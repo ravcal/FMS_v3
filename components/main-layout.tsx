@@ -4,18 +4,22 @@ import { useState } from "react";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
 
+// Define the props for the layout
 interface MainLayoutProps {
   children: React.ReactNode;
   activeTab: string;
 }
 
 export function MainLayout({ children, activeTab }: MainLayoutProps) {
+  // State to manage if the sidebar is open or closed
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Function passed to the Header to open the sidebar
   const handleMenuClick = () => {
     setSidebarOpen(true);
   };
 
+  // Function passed to the Sidebar to close it
   const handleCloseSidebar = () => {
     setSidebarOpen(false);
   };

@@ -23,11 +23,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
+// Ensure the props interface is defined correctly
 interface SidebarProps {
-  activeTab?: string
-  setActiveTab?: (tab: string) => void
-  isOpen: boolean
-  onClose: () => void
+  activeTab: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const menuItems = [
@@ -54,7 +54,7 @@ const menuItems = [
   { id: "reports", label: "Reports", icon: FileText, path: "/reports" },
 ]
 
-export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClose }: SidebarProps) {
+export function Sidebar({ activeTab, isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
 
   const isPathActive = (path: string) => {
@@ -63,50 +63,44 @@ export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClo
     }
     return pathname?.startsWith(path) || false
   }
-
-  const handleLinkClick = (itemId: string) => {
-    setActiveTab(itemId)
+  
+  const handleLinkClick = () => {
     // Close sidebar on mobile when a link is clicked
     if (typeof window !== "undefined" && window.innerWidth < 768) {
-      onClose()
+      onClose();
     }
   }
 
-  // Close sidebar when clicking outside on mobile
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (typeof window === "undefined") return
-
-      const sidebar = document.getElementById("mobile-sidebar")
-      const target = event.target as Node
-
+      if (typeof window === "undefined") return;
+      const sidebar = document.getElementById("mobile-sidebar");
+      const target = event.target as Node;
       if (isOpen && sidebar && !sidebar.contains(target) && window.innerWidth < 768) {
-        onClose()
+        onClose();
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-      // Prevent body scroll when sidebar is open on mobile
+      document.addEventListener("mousedown", handleClickOutside);
       if (typeof window !== "undefined" && window.innerWidth < 768) {
-        document.body.style.overflow = "hidden"
+        document.body.style.overflow = "hidden";
       }
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("mousedown", handleClickOutside);
       if (typeof document !== "undefined") {
-        document.body.style.overflow = "unset"
+        document.body.style.overflow = "unset";
       }
-    }
-  }, [isOpen, onClose])
+    };
+  }, [isOpen, onClose]);
 
-  // Close sidebar on route change (mobile)
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      onClose()
+    if (isOpen && typeof window !== 'undefined' && window.innerWidth < 768) {
+      onClose();
     }
-  }, [pathname, onClose])
+  }, [pathname]);
 
   return (
     <>
@@ -120,21 +114,17 @@ export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClo
         id="mobile-sidebar"
         className={cn(
           "bg-white shadow-lg h-full flex flex-col transition-transform duration-300 ease-in-out z-50",
-          // Desktop: always visible, fixed width
           "md:relative md:translate-x-0 md:w-64",
-          // Mobile: overlay with slide animation
           "fixed top-0 left-0 w-80 max-w-[85vw]",
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         {/* Header */}
         <div className="p-6 border-b flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2" onClick={() => handleLinkClick("dashboard")}>
+          <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
             <Truck className="h-8 w-8 text-blue-600" />
-            <h1 className="text-xl font-bold text-gray-800">My Cassandra</h1>
+            <h1 className="text-xl font-bold text-gray-800">My Fleet Manager</h1>
           </Link>
-
-          {/* Close button for mobile */}
           <button
             onClick={onClose}
             className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
@@ -148,17 +138,15 @@ export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClo
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-2 space-y-1">
             {menuItems.map((item) => {
-              const Icon = item.icon
-              const isActive = isPathActive(item.path)
-
+              const Icon = item.icon;
+              const isActive = isPathActive(item.path);
               return (
                 <Link
                   key={item.id}
                   href={item.path}
-                  onClick={() => handleLinkClick(item.id)}
+                  onClick={handleLinkClick}
                   className={cn(
                     "w-full flex items-center px-3 py-3 rounded-md text-sm font-medium transition-colors",
-                    // Mobile: larger touch targets
                     "md:py-2",
                     isActive
                       ? "bg-blue-50 text-blue-700 border-r-2 border-blue-600"
@@ -169,16 +157,16 @@ export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClo
                   <Icon className="h-5 w-5 mr-3 flex-shrink-0" />
                   <span className="truncate">{item.label}</span>
                 </Link>
-              )
+              );
             })}
           </div>
         </nav>
-
+        
         {/* Settings */}
         <div className="border-t p-4">
           <Link
             href="/settings"
-            onClick={() => handleLinkClick("settings")}
+            onClick={handleLinkClick}
             className="flex items-center px-3 py-3 md:py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors"
           >
             <Settings className="h-5 w-5 mr-3" />
