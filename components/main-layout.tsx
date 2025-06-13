@@ -4,14 +4,12 @@ import { useState } from "react";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
 
-// Define the props for the layout, including the active tab and the page content
 interface MainLayoutProps {
   children: React.ReactNode;
   activeTab: string;
 }
 
 export function MainLayout({ children, activeTab }: MainLayoutProps) {
-  // State for the sidebar is managed here
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleMenuClick = () => {

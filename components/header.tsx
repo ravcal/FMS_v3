@@ -15,10 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { NotificationsPanel } from "@/components/notifications-panel"
-import Link from "next/link" // Import the Link component
+import Link from "next/link"
 
+// Ensure the props interface is defined correctly
 interface HeaderProps {
-  onMenuClick: () => void
+  onMenuClick: () => void;
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
@@ -27,7 +28,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
       <div className="flex h-16 items-center px-4 md:px-6">
-        {/* Mobile menu button */}
+        {/* Mobile menu button. It MUST have the onClick handler. */}
         <Button variant="ghost" size="icon" className="md:hidden mr-2" onClick={onMenuClick} aria-label="Open menu">
           <Menu className="h-6 w-6" />
         </Button>
@@ -73,7 +74,6 @@ export function Header({ onMenuClick }: HeaderProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              {/* Wrap the item with a Link */}
               <Link href="/settings">
                 <DropdownMenuItem>Profile</DropdownMenuItem>
               </Link>
