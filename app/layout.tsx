@@ -9,7 +9,7 @@ import "leaflet/dist/leaflet.css"; // Ensure this line exists
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Faisal Fleet Manager",
+  title: "Cassandra",
   description: "Comprehensive fleet management solution by Faisal",
     generator: 'v0.dev'
 }

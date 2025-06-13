@@ -131,7 +131,7 @@ export function Sidebar({ activeTab = "", setActiveTab = () => {}, isOpen, onClo
         <div className="p-6 border-b flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2" onClick={() => handleLinkClick("dashboard")}>
             <Truck className="h-8 w-8 text-blue-600" />
-            <h1 className="text-xl font-bold text-gray-800">Fleet Manager</h1>
+            <h1 className="text-xl font-bold text-gray-800">My Cassandra</h1>
           </Link>
 
           {/* Close button for mobile */}
