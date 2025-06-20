@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CalendarIcon, Check, Loader2, Upload } from "lucide-react"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export function AddDriverForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -222,31 +223,31 @@ export function AddDriverForm() {
                   <Label>Vehicle Types Experience</Label>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="van" className="rounded border-gray-300" />
+                      <Checkbox id="van" />
                       <Label htmlFor="van" className="font-normal">
                         Van
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="truck" className="rounded border-gray-300" />
+                      <Checkbox id="truck" />
                       <Label htmlFor="truck" className="font-normal">
                         Truck
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="bus" className="rounded border-gray-300" />
+                      <Checkbox id="bus" />
                       <Label htmlFor="bus" className="font-normal">
                         Bus
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="forklift" className="rounded border-gray-300" />
+                      <Checkbox id="forklift" />
                       <Label htmlFor="forklift" className="font-normal">
                         Forklift
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="hazmat" className="rounded border-gray-300" />
+                      <Checkbox id="hazmat" />
                       <Label htmlFor="hazmat" className="font-normal">
                         Hazmat
                       </Label>
@@ -317,21 +318,21 @@ export function AddDriverForm() {
                       <p className="font-medium">Defensive Driving</p>
                       <p className="text-sm text-gray-500">Completed defensive driving course</p>
                     </div>
-                    <input type="checkbox" className="rounded border-gray-300" />
+                    <Checkbox />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">Hazardous Materials</p>
                       <p className="text-sm text-gray-500">Certified to transport hazardous materials</p>
                     </div>
-                    <input type="checkbox" className="rounded border-gray-300" />
+                    <Checkbox />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">First Aid</p>
                       <p className="text-sm text-gray-500">First aid and CPR certified</p>
                     </div>
-                    <input type="checkbox" className="rounded border-gray-300" />
+                    <Checkbox />
                   </div>
                 </div>
               </div>

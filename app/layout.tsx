@@ -3,8 +3,8 @@ import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ErrorBoundary } from "@/components/error-boundary"
-import "leaflet/dist/leaflet.css"; // Ensure this line exists
-// ... rest of your layout file
+import { Toaster } from "@/components/ui/sonner" // 1. Import the Toaster
+import "leaflet/dist/leaflet.css";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <ErrorBoundary>{children}</ErrorBoundary>
+          <Toaster /> {/* 2. Add the Toaster component here */}
         </ThemeProvider>
       </body>
     </html>

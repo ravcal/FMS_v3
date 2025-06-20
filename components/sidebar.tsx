@@ -18,6 +18,7 @@ import {
   Navigation,
   DollarSign,
   X,
+  ClipboardCheck, // 1. Import the new icon
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -34,6 +35,13 @@ const menuItems = [
   { id: "vehicles", label: "Vehicles", icon: Truck, path: "/vehicles" },
   { id: "drivers", label: "Drivers", icon: Users, path: "/drivers" },
   { id: "maintenance", label: "Maintenance", icon: Wrench, path: "/maintenance" },
+  // 2. Add the new menu item for Inspection
+  {
+    id: "maintenance-inspection",
+    label: "Vehicle Inspection",
+    icon: ClipboardCheck,
+    path: "/maintenance/inspection",
+  },
   {
     id: "maintenance-breakdown",
     label: "Report Breakdown",
