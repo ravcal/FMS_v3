@@ -21,6 +21,7 @@ import {
   MapPin,
   DollarSign,
   XCircle,
+  ClipboardCheck,
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -328,6 +329,12 @@ export function UnifiedMaintenance() {
             <Link href="/maintenance/add">
               <Plus className="h-4 w-4 mr-2" />
               Schedule Maintenance
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/maintenance/inspection">
+              <ClipboardCheck className="h-4 w-4 mr-2" />
+              Start Inspection
             </Link>
           </Button>
           <Button className="bg-red-600 hover:bg-red-700" asChild>
