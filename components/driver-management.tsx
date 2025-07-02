@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Plus, Search, Filter, MoreHorizontal, Users, Car, Clock, Phone, Mail, Eye, Edit, Trash2 } from "lucide-react"
+import { Plus, Search, Filter, MoreHorizontal, Users, Car, Clock, Phone, Mail, Eye, Edit, Trash2, Shield } from "lucide-react"
 import Link from "next/link"
 import {
   Dialog,
@@ -298,6 +298,12 @@ export function DriverManagement() {
                           <DropdownMenuItem>
                             <Eye className="h-4 w-4 mr-2" />
                             View Profile
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href="/driving-behavior">
+                              <Shield className="h-4 w-4 mr-2" />
+                              Behavior
+                            </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleEdit(driver)}>
                             <Edit className="h-4 w-4 mr-2" />

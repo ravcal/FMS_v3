@@ -13,12 +13,13 @@ import {
   Fuel,
   Database,
   BarChart3,
+  Shield,
   History,
   AlertTriangle,
   Navigation,
   DollarSign,
   X,
-  ClipboardCheck, // 1. Import the new icon
+  ClipboardCheck,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -35,6 +36,7 @@ const menuItems = [
   { id: "vehicles", label: "Vehicles", icon: Truck, path: "/vehicles" },
   { id: "drivers", label: "Drivers", icon: Users, path: "/drivers" },
   { id: "maintenance", label: "Maintenance", icon: Wrench, path: "/maintenance" },
+  { id: "driving-behavior", label: "Driving Behavior", icon: Shield, path: "/driving-behavior" },
   // 2. Add the new menu item for Inspection
   {
     id: "maintenance-inspection",

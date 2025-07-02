@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Truck, Users, Route, Wrench, AlertTriangle, Fuel, Calendar, CheckCircle, Clock } from "lucide-react"
+import { Truck, Users, Route, Wrench, AlertTriangle, Fuel, Calendar, CheckCircle, Clock, Shield } from "lucide-react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { VehicleManagement } from "@/components/vehicle-management"
 import { DriverManagement } from "@/components/driver-management"
@@ -26,7 +26,7 @@ export function DashboardOverview() {
 
         <TabsContent value="overview" className="space-y-6">
           {/* Fleet Status Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <Card>
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
@@ -68,6 +68,17 @@ export function DashboardOverview() {
                     <p className="text-sm text-gray-600">Maintenance Due</p>
                   </div>
                   <Wrench className="h-8 w-8 text-orange-600" />
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-2xl font-bold text-teal-600">90</div>
+                    <p className="text-sm text-gray-600">Avg. Behavior Score</p>
+                  </div>
+                  <Shield className="h-8 w-8 text-teal-600" />
                 </div>
               </CardContent>
             </Card>

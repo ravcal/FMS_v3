@@ -88,6 +88,7 @@ export function RouteAnalytics() {
       efficiency: 94,
       onTime: 98,
       fuelScore: 92,
+      behaviorScore: 95,
     },
     {
       name: "John Smith",
@@ -95,6 +96,7 @@ export function RouteAnalytics() {
       efficiency: 91,
       onTime: 96,
       fuelScore: 89,
+      behaviorScore: 90,
     },
     {
       name: "Mike Davis",
@@ -102,6 +104,7 @@ export function RouteAnalytics() {
       efficiency: 88,
       onTime: 94,
       fuelScore: 87,
+      behaviorScore: 88,
     },
     {
       name: "Sarah Johnson",
@@ -109,6 +112,7 @@ export function RouteAnalytics() {
       efficiency: 85,
       onTime: 92,
       fuelScore: 84,
+      behaviorScore: 82,
     },
   ]
 
@@ -266,7 +270,7 @@ export function RouteAnalytics() {
                       </Badge>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-4 gap-4">
                       <div>
                         <div className="flex justify-between items-center mb-1">
                           <span className="text-xs text-gray-500">Efficiency</span>
@@ -287,6 +291,13 @@ export function RouteAnalytics() {
                           <span className="text-xs font-medium">{driver.fuelScore}%</span>
                         </div>
                         <Progress value={driver.fuelScore} className="h-1" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-xs text-gray-500">Behavior Score</span>
+                          <span className="text-xs font-medium">{driver.behaviorScore}%</span>
+                        </div>
+                        <Progress value={driver.behaviorScore} className="h-1" />
                       </div>
                     </div>
                   </div>
