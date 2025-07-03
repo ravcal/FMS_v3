@@ -12,18 +12,47 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+const users = [
+  {
+    email: "admin@seedhappens.com",
+    password: "password",
+    firstName: "Admin",
+    lastName: "User",
+    company: "FMS Inc.",
+  },
+  {
+    email: "test@seedhappens.com",
+    password: "password",
+    firstName: "Test",
+    lastName: "User",
+    company: "FMS Inc.",
+  },
+];
+
 export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    // Simulate login process
+    // Find the user
+    const user = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
     setTimeout(() => {
       setIsLoading(false)
-      router.push("/")
+      if (user) {
+        router.push("/")
+      } else {
+        setError("Invalid email or password")
+      }
     }, 1500)
   }
 
@@ -44,7 +73,7 @@ export default function LoginPage() {
         <div className="flex justify-center mb-8">
           <div className="flex items-center space-x-2">
             <Truck className="h-10 w-10 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-800">Faisal Fleet Manager</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Cassandra</h1>
           </div>
         </div>
 
@@ -62,9 +91,10 @@ export default function LoginPage() {
               </CardHeader>
               <form onSubmit={handleLogin}>
                 <CardContent className="space-y-4">
+                  {error && <p className="text-red-500 text-sm">{error}</p>}
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="name@company.com" required />
+                    <Input id="email" type="email" placeholder="name@company.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -73,7 +103,7 @@ export default function LoginPage() {
                         Forgot password?
                       </Link>
                     </div>
-                    <Input id="password" type="password" required />
+                    <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                 </CardContent>
                 <CardFooter>

@@ -31,6 +31,8 @@ export function AddRouteForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
+  const [isStartDateOpen, setIsStartDateOpen] = useState(false);
+  const [isEndDateOpen, setIsEndDateOpen] = useState(false);
   const [stops, setStops] = useState<Stop[]>([
     {
       id: "1",
@@ -166,7 +168,7 @@ export function AddRouteForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="startDate">Start Date</Label>
-                  <Popover>
+                  <Popover open={isStartDateOpen} onOpenChange={setIsStartDateOpen}>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-start text-left font-normal">
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -174,13 +176,21 @@ export function AddRouteForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={startDate} onSelect={setStartDate} initialFocus />
+                      <Calendar
+                        mode="single"
+                        selected={startDate}
+                        onSelect={(date) => {
+                          setStartDate(date);
+                          setIsStartDateOpen(false);
+                        }}
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="endDate">End Date (Optional)</Label>
-                  <Popover>
+                  <Popover open={isEndDateOpen} onOpenChange={setIsEndDateOpen}>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-start text-left font-normal">
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -188,7 +198,15 @@ export function AddRouteForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={endDate} onSelect={setEndDate} initialFocus />
+                      <Calendar
+                        mode="single"
+                        selected={endDate}
+                        onSelect={(date) => {
+                          setEndDate(date);
+                          setIsEndDateOpen(false);
+                        }}
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>

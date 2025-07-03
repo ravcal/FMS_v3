@@ -11,13 +11,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, Upload, MapPin } from "lucide-react"
+import { CalendarIcon, Upload, MapPin, ArrowLeft, Loader2 } from "lucide-react"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { addFuelTransaction } from "@/lib/data"
 
 export function AddFuelTransaction() {
+  const router = useRouter();
   const [date, setDate] = useState<Date>()
+  const [isDateOpen, setIsDateOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     vehicleId: "",
     driverId: "",
@@ -32,8 +37,21 @@ export function AddFuelTransaction() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", { ...formData, date })
+    setIsSubmitting(true);
+    const newTransaction = {
+      id: `FT${Date.now()}`,
+      ...formData,
+      date: date ? format(date, "yyyy-MM-dd") : "",
+      time: new Date().toLocaleTimeString(),
+      totalCost: Number(formData.quantity) * Number(formData.pricePerLiter),
+      fuelEfficiency: 0, // This would be calculated
+      status: "completed",
+    };
+    addFuelTransaction(newTransaction);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      router.push("/fuel");
+    }, 1500);
   }
 
   const handleInputChange = (field: string, value: string) => {
@@ -41,14 +59,17 @@ export function AddFuelTransaction() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Add Fuel Transaction</h1>
           <p className="text-gray-600 mt-1">Record a new fuel purchase</p>
         </div>
         <Link href="/fuel">
-          <Button variant="outline">Back to Fuel Management</Button>
+          <Button variant="outline">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Fuel Management
+          </Button>
         </Link>
       </div>
 
@@ -90,7 +111,7 @@ export function AddFuelTransaction() {
 
               <div className="space-y-2">
                 <Label>Date</Label>
-                <Popover>
+                <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
@@ -101,7 +122,15 @@ export function AddFuelTransaction() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
-                    <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={(d) => {
+                        setDate(d);
+                        setIsDateOpen(false);
+                      }}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -206,8 +235,15 @@ export function AddFuelTransaction() {
               <Link href="/fuel">
                 <Button variant="outline">Cancel</Button>
               </Link>
-              <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
-                Save Transaction
+              <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  "Save Transaction"
+                )}
               </Button>
             </div>
           </form>

@@ -85,6 +85,26 @@ export interface SAPPurchaseOrderItem {
   deliveryDate: string
 }
 
+export interface SAPInvoice {
+  invoiceNumber: string;
+  customerNumber: string;
+  customerName: string;
+  invoiceDate: string;
+  dueDate: string;
+  totalAmount: number;
+  currency: string;
+  status: "OPEN" | "CLEARED" | "OVERDUE";
+  items: SAPInvoiceItem[];
+}
+
+export interface SAPInvoiceItem {
+  itemNumber: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+}
+
 export class SAPIntegration {
   private config: SAPConfig
   private authToken: string | null = null
@@ -211,6 +231,16 @@ export class SAPIntegration {
       "PUT",
       order,
     )
+  }
+
+  // Invoice Integration
+  async getInvoices(filter?: string): Promise<SAPResponse<SAPInvoice[]>> {
+    const queryFilter = filter ? `?$filter=${filter}` : ""
+    return this.makeRequest<SAPInvoice[]>(`/sap/opu/odata/sap/ZFI_INVOICE_SRV/InvoiceSet${queryFilter}`);
+  }
+
+  async createInvoice(invoice: Partial<SAPInvoice>): Promise<SAPResponse<SAPInvoice>> {
+    return this.makeRequest<SAPInvoice>("/sap/opu/odata/sap/ZFI_INVOICE_SRV/InvoiceSet", "POST", invoice);
   }
 
   // Cost Center Integration

@@ -21,6 +21,9 @@ export function AddVehicleForm() {
   const [purchaseDate, setPurchaseDate] = useState<Date>()
   const [registrationDate, setRegistrationDate] = useState<Date>()
   const [insuranceExpiry, setInsuranceExpiry] = useState<Date>()
+  const [isPurchaseDateOpen, setIsPurchaseDateOpen] = useState(false)
+  const [isRegistrationDateOpen, setIsRegistrationDateOpen] = useState(false)
+  const [isInsuranceExpiryOpen, setIsInsuranceExpiryOpen] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -189,7 +192,7 @@ export function AddVehicleForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="purchaseDate">Purchase Date</Label>
-                  <Popover>
+                  <Popover open={isPurchaseDateOpen} onOpenChange={setIsPurchaseDateOpen}>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-start text-left font-normal">
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -197,7 +200,15 @@ export function AddVehicleForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={purchaseDate} onSelect={setPurchaseDate} initialFocus />
+                      <Calendar
+                        mode="single"
+                        selected={purchaseDate}
+                        onSelect={(date) => {
+                          setPurchaseDate(date);
+                          setIsPurchaseDateOpen(false);
+                        }}
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -207,7 +218,7 @@ export function AddVehicleForm() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="registrationDate">Registration Date</Label>
-                  <Popover>
+                  <Popover open={isRegistrationDateOpen} onOpenChange={setIsRegistrationDateOpen}>
                     <PopoverTrigger asChild>
                       <Button variant="outline" className="w-full justify-start text-left font-normal">
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -215,7 +226,15 @@ export function AddVehicleForm() {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={registrationDate} onSelect={setRegistrationDate} initialFocus />
+                      <Calendar
+                        mode="single"
+                        selected={registrationDate}
+                        onSelect={(date) => {
+                          setRegistrationDate(date);
+                          setIsRegistrationDateOpen(false);
+                        }}
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -240,7 +259,7 @@ export function AddVehicleForm() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="insuranceExpiry">Expiry Date</Label>
-                    <Popover>
+                    <Popover open={isInsuranceExpiryOpen} onOpenChange={setIsInsuranceExpiryOpen}>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className="w-full justify-start text-left font-normal">
                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -248,7 +267,15 @@ export function AddVehicleForm() {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <Calendar mode="single" selected={insuranceExpiry} onSelect={setInsuranceExpiry} initialFocus />
+                        <Calendar
+                          mode="single"
+                          selected={insuranceExpiry}
+                          onSelect={(date) => {
+                            setInsuranceExpiry(date);
+                            setIsInsuranceExpiryOpen(false);
+                          }}
+                          initialFocus
+                        />
                       </PopoverContent>
                     </Popover>
                   </div>

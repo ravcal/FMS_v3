@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { NotificationsPanel } from "@/components/notifications-panel"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 // Define the component's props interface
 interface HeaderProps {
@@ -24,6 +25,12 @@ interface HeaderProps {
 
 export function Header({ onMenuClick }: HeaderProps) {
   const [showNotifications, setShowNotifications] = useState(false)
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Here you would typically handle the logout logic, e.g., clearing the session
+    router.push("/login");
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
@@ -82,7 +89,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               </Link>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

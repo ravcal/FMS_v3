@@ -15,6 +15,8 @@ export function RouteHistory() {
   const [searchTerm, setSearchTerm] = useState("")
   const [dateFrom, setDateFrom] = useState<Date>()
   const [dateTo, setDateTo] = useState<Date>()
+  const [isDateFromOpen, setIsDateFromOpen] = useState(false)
+  const [isDateToOpen, setIsDateToOpen] = useState(false)
 
   const completedRoutes = [
     {
@@ -201,7 +203,7 @@ export function RouteHistory() {
                 className="pl-10"
               />
             </div>
-            <Popover>
+            <Popover open={isDateFromOpen} onOpenChange={setIsDateFromOpen}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="justify-start text-left font-normal">
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -209,10 +211,18 @@ export function RouteHistory() {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" selected={dateFrom} onSelect={setDateFrom} initialFocus />
+                <Calendar
+                  mode="single"
+                  selected={dateFrom}
+                  onSelect={(date) => {
+                    setDateFrom(date);
+                    setIsDateFromOpen(false);
+                  }}
+                  initialFocus
+                />
               </PopoverContent>
             </Popover>
-            <Popover>
+            <Popover open={isDateToOpen} onOpenChange={setIsDateToOpen}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="justify-start text-left font-normal">
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -220,7 +230,15 @@ export function RouteHistory() {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" selected={dateTo} onSelect={setDateTo} initialFocus />
+                <Calendar
+                  mode="single"
+                  selected={dateTo}
+                  onSelect={(date) => {
+                    setDateTo(date);
+                    setIsDateToOpen(false);
+                  }}
+                  initialFocus
+                />
               </PopoverContent>
             </Popover>
             <div className="flex space-x-2">

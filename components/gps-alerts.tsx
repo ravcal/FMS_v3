@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch"
 import { AlertTriangle, MapPin, Clock, Fuel, Zap, Shield, Bell, Settings, Plus } from "lucide-react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import Link from "next/link"
 
 interface GPSAlert {
   id: string
@@ -222,10 +223,12 @@ export function GPSAlerts() {
             <h2 className="text-3xl font-bold text-gray-900">GPS Alerts & Monitoring</h2>
             <p className="text-gray-600 mt-2">Real-time alerts and automated monitoring rules</p>
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-700">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Alert Rule
-          </Button>
+          <Link href="/alerts/add">
+            <Button className="bg-blue-600 hover:bg-blue-700">
+              <Plus className="h-4 w-4 mr-2" />
+              Create Alert Rule
+            </Button>
+          </Link>
         </div>
 
         {alertError && (
